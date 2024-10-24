@@ -50,12 +50,17 @@ document.addEventListener("DOMContentLoaded", () => {
     noteCard.classList.remove("running");
   }
 
+  function getValidatedBPM(value) {
+    return Math.max(25, Math.min(200, value)); // Constrain BPM between 25 and 200
+  }
+
   startStopButton.addEventListener("click", () => {
     if (isRunning) {
       stopRotation();
       startStopButton.textContent = "Start";
     } else {
-      const bpm = parseInt(bpmInput.value, 10);
+      let bpm = getValidatedBPM(parseInt(bpmInput.value, 10));
+      bpmInput.value = bpm; // Ensure input is clamped
       if (!isNaN(bpm) && bpm > 0) {
         startRotation(bpm);
         startStopButton.textContent = "Stop";
@@ -65,13 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   plusButton.addEventListener("click", () => {
-    let bpm = Math.min(300, parseInt(bpmInput.value, 10) + 1);
+    let bpm = getValidatedBPM(parseInt(bpmInput.value, 10) + 1);
     bpmInput.value = bpm;
     if (isRunning) startRotation(bpm);
   });
 
   minusButton.addEventListener("click", () => {
-    let bpm = Math.max(1, parseInt(bpmInput.value, 10) - 1);
+    let bpm = getValidatedBPM(parseInt(bpmInput.value, 10) - 1);
     bpmInput.value = bpm;
     if (isRunning) startRotation(bpm);
   });
@@ -86,7 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   bpmInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-      const bpm = parseInt(bpmInput.value, 10);
+      let bpm = getValidatedBPM(parseInt(bpmInput.value, 10));
+      bpmInput.value = bpm; // Ensure input is clamped
       if (!isNaN(bpm) && bpm > 0) {
         startRotation(bpm);
         startStopButton.textContent = "Stop";
