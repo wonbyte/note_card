@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function getValidatedBPM(value) {
-    return Math.max(25, Math.min(200, value)); // Constrain BPM between 25 and 200
+    return Math.max(1, Math.min(300, value)); // Constrain BPM between 25 and 200
   }
 
   startStopButton.addEventListener("click", () => {
