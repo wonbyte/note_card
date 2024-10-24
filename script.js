@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startRotation(bpm) {
     if (intervalId) clearInterval(intervalId);
-    const interval = Math.max((60 / bpm) * 1000, 500);
+    const interval = (60 / bpm) * 1000;
     rotateNote();
     intervalId = setInterval(rotateNote, interval);
     noteCard.classList.add("running");
